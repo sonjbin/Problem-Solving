@@ -1,24 +1,14 @@
 class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
+        par_dict = {")":"(", "}":"{", "]":"["}
         for p in s:
-            if p in ['(', '{', '[']:
+            if p in par_dict.values():
                 stack.append(p)
-            elif p == ')':
-                if stack and stack[-1] == '(':
-                    stack.pop()
-                else:
-                    return False
-            elif p == '}':
-                if stack and stack[-1] == '{':
-                    stack.pop()
-                else:
-                    return False
-            elif p == ']':
-                if stack and stack[-1] == '[':
-                    stack.pop()
-                else:
-                    return False
+            elif stack and stack[-1] == par_dict[p]:
+                stack.pop()
+            else:
+                return False
         if stack:
             return False
         return True
